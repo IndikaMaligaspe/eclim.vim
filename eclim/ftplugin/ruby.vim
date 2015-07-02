@@ -1,11 +1,8 @@
 " Author:  Eric Van Dewoestine
 "
-" Description: {{{
-"   see http://eclim.org/vim/ruby/index.html
+" License: {{{
 "
-" License:
-"
-" Copyright (C) 2005 - 2013  Eric Van Dewoestine
+" Copyright (C) 2005 - 2014  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -22,26 +19,11 @@
 "
 " }}}
 
-" Global Variables {{{
-
-if !exists("g:EclimRubyValidate")
-  let g:EclimRubyValidate = 1
-endif
-
-if !exists("g:EclimRubySyntasticEnabled")
-  let g:EclimRubySyntasticEnabled = 0
-endif
-
-" }}}
-
 " Options {{{
 
 exec 'setlocal ' . g:EclimCompletionMethod . '=eclim#ruby#complete#CodeComplete'
 
-" disable syntastic
-if exists('g:loaded_syntastic_plugin') && !g:EclimRubySyntasticEnabled
-  let g:syntastic_ruby_checkers = []
-endif
+call eclim#lang#DisableSyntasticIfValidationIsEnabled('ruby')
 
 " }}}
 
@@ -60,12 +42,14 @@ command! -nargs=0 -buffer Validate :call eclim#lang#UpdateSrcFile('ruby', 1)
 
 if !exists(":RubySearch")
   command -buffer -nargs=*
-    \ -complete=customlist,eclim#ruby#search#CommandCompleteRubySearch
+    \ -complete=customlist,eclim#ruby#search#CommandCompleteSearch
     \ RubySearch :call eclim#ruby#search#Search('<args>')
 endif
 
 if !exists(":RubySearchContext")
-  command -buffer RubySearchContext :call eclim#ruby#search#SearchContext()
+  command -buffer -nargs=*
+    \ -complete=customlist,eclim#ruby#search#CommandCompleteSearchContext
+    \ RubySearchContext :call eclim#ruby#search#SearchContext('<args>')
 endif
 
 " }}}

@@ -47,7 +47,7 @@ function s:InitInterpreters() " {{{
       silent! let path =
         \ substitute(eclim#util#System('which ruby 2> /dev/null'), '\n$', '', '')
     else
-      let paths = escape(substitute(expand('$PATH'), ';', ',', 'g'), ' ')
+      let paths = escape(substitute($PATH, ';', ',', 'g'), ' ')
       let path = substitute(findfile('ruby.exe', paths, ';'), '\', '/', 'g')
     endif
     let answer = 0
@@ -55,7 +55,7 @@ function s:InitInterpreters() " {{{
       let answer = eclim#util#PromptConfirm(
         \ "No ruby interpreter configured.\n" .
         \ "Would you like to use the following interpreter?\n" .
-        \ "  " . path, g:EclimInfoHighlight)
+        \ "  " . path, g:EclimHighlightInfo)
       if answer == -1
         return 0
       endif
@@ -67,7 +67,7 @@ function s:InitInterpreters() " {{{
 
     " prompt user for interpreter path
     if answer == 0
-      exec "echohl " . g:EclimInfoHighlight
+      exec "echohl " . g:EclimHighlightInfo
       try
         " clear any previous messages
         redraw
@@ -93,7 +93,7 @@ function s:InitInterpreters() " {{{
             break
           else
             " an error will reset the highlighting
-            exec "echohl " . g:EclimInfoHighlight
+            exec "echohl " . g:EclimHighlightInfo
           endif
         endwhile
       finally

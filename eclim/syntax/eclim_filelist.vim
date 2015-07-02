@@ -1,11 +1,8 @@
 " Author:  Eric Van Dewoestine
 "
-" Description: {{{
-"  Syntax file for maven's project.xml files.
+" License: {{{
 "
-" License:
-"
-" Copyright (C) 2005 - 2009  Eric Van Dewoestine
+" Copyright (C) 2014  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -22,6 +19,6 @@
 "
 " }}}
 
-runtime! syntax/xml.vim
+source $VIMRUNTIME/syntax/qf.vim
 
 " vim:ft=vim:fdm=marker
